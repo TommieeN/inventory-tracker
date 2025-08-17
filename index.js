@@ -1,12 +1,14 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const app = express();
+const authRoutes = require("./routes/authRoute");
 
 dotenv.config();
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+const app = express();
+
+app.use(express.json());
+
+app.use("/api", authRoutes);
 
 app.listen(3000, () => {
   console.log("App is running on port 3000");

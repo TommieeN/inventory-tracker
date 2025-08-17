@@ -1,5 +1,4 @@
-const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
-
+const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 const validateUser = (inputData) => {
   const errors = {};
@@ -28,9 +27,7 @@ const validateUser = (inputData) => {
     errors.password = "Password is required and cannot be empty";
   }
 
-  return Object.keys(errors).length > 0 ? errors : null
-
+  return Object.keys(errors).length > 0 ? errors : null;
 };
 
-
-export default validateUser;
+module.exports = { validateUser };
