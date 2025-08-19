@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const knex = require("../db/knex");
 const { validateUser } = require("../Utils/validateUser");
+const jwt = require("jsonwebtoken");
 
 // Salt is a random string added to the password before hashing
 // SaltRounds 10 -> Generates a salt with 10 rounds of complexity
@@ -61,10 +62,13 @@ const loginUser = async (req, res) => {
     }
 
     // Return on success
-    return res.status(200).json({
-      message: "Login Successful",
-      user: { id: user.id, email: user.email },
-    });
+   const token = jwt.sign(
+    {userId: user.id, email: user.email},
+    process.env.JWT_SECRET,
+    { expiresIn: "1h"}
+   )
+
+   res.json({ message: "Login sucessful", token})
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
