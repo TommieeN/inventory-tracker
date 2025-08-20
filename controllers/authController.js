@@ -36,7 +36,11 @@ const registerUser = async (req, res) => {
     // Return response
     res.status(201).json({
       message: "User registered successfully",
-      user: newUser,
+      user: {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+      },
     });
   } catch (err) {
     console.error(err);
@@ -58,16 +62,17 @@ const loginUser = async (req, res) => {
     // Compares password with bcrypt
     const isMatch = await bcrypt.compare(password, user.password_hash);
     if (!isMatch) {
-      return res.status(400).json({ error: "password" });
+      return res.status(400).json({ error: "Invalid email or password" });
     }
 
-    // Return on success
+    // Create token
    const token = jwt.sign(
     {userId: user.id, email: user.email},
     process.env.JWT_SECRET,
     { expiresIn: "1h"}
    )
 
+  //  Return response
    res.json({ message: "Login sucessful", token})
   } catch (error) {
     console.error(error);
