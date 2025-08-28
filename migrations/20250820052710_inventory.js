@@ -30,6 +30,7 @@ exports.up = function (knex) {
       .index();
 
     table.integer("quantity").unsigned().notNullable();
+    table.string("box_code");
     table.timestamps(true, true);
   });
 };
