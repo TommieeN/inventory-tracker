@@ -14,10 +14,18 @@ exports.up = function (knex) {
       .onDelete("CASCADE")
       .index();
     table
-      .string("location_id")
+      .integer("location_id")
       .unsigned()
       .references("id")
       .inTable("locations")
+      .onDelete("SET NULL")
+      .index();
+
+    table
+      .integer("pallet_id")
+      .unsigned()
+      .references("id")
+      .inTable("pallets")
       .onDelete("SET NULL")
       .index();
 

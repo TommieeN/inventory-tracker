@@ -14,7 +14,7 @@ exports.up = function (knex) {
     table.enum("multifocal", ["low", "medium", "high"]).nullable;
     table.string("color").nullable();
     table.integer("pack_size");
-    table.timestamps(true, true)
+    table.timestamps(true, true);
   });
 };
 
@@ -23,5 +23,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-    return knex.schema.dropTable("products")
+  return knex.schema.dropTable("products");
 };
