@@ -5,11 +5,22 @@
 exports.up = function (knex) {
   return knex.schema.createTable("inventory", (table) => {
     table.increments("id").primary();
-    table.string("name").notNullable();
-    table.string("upc").unique().index();
-    table.string("sku").index();
-    table.string("category").notNullable().index();
-    table.string("location").index();
+    table
+      .integer("product_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("products")
+      .onDelete("CASCADE")
+      .index();
+    table
+      .string("location_id")
+      .unsigned()
+      .references("id")
+      .inTable("locations")
+      .onDelete("SET NULL")
+      .index();
+
     table.integer("quantity").unsigned().notNullable();
     table.timestamps(true, true);
   });
